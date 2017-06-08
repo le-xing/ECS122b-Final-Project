@@ -1,5 +1,5 @@
 
-OBJS = suffixTree.o edge.o node.o
+OBJS = suffixTree.o edge.o node.o buildTree.o main.o
 CC = g++
 DEBUG = -g
 CFLAGS = -Wall -c -std=c++11 $(DEBUG)
@@ -16,6 +16,13 @@ edge.o : edge.h edge.cpp node.h
 
 suffixTree.o : suffixTree.h suffixTree.cpp node.h edge.h
 	    $(CC) $(CFLAGS) suffixTree.cpp
+
+buildTree.o : buildTree.h buildTree.cpp suffixTree.h 
+		$(CC) $(CFLAGS) buildTree.cpp
+
+main.o : buildTree.h
+		$(CC) $(CFLAGS) main.cpp
+
 clean:
 	rm -f $(OBJS)
 	rm -f $(EXEC)
