@@ -7,6 +7,6 @@
 int breakEdge(suffixTree &s, Edge &e);
 void carryPhase(suffixTree &tree, int lastIndex);
 bool search(std::string pattern, suffixTree tree);
-void buildTree(const std::string& S, suffixTree* tree);
+suffixTree buildTree(const std::string& S);
 
 #endif

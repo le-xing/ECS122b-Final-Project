@@ -94,6 +94,7 @@ bool search(std::string pattern, suffixTree tree) {
     // index until where we have matched on edge.
     int iter = 0;
     int i = -1;
+
     if (e.startNode != -1) {
         while(i < len) {
             std::cout << "Search:\tEdge: " << e.startNode << " " << e.endNode << " : " 
@@ -103,9 +104,9 @@ bool search(std::string pattern, suffixTree tree) {
             // Match this edge as much as possible.
             while (e.endLabelIndex >= e.startLabelIndex + iter)   
                     {
-                        std::cout << "Search:\tmatching " << tree.input[e.startLabelIndex + iter] << " " 
-                             << pattern[i + iter + 1]
-                            << " at index: " << e.startLabelIndex + iter << std::endl;
+                        //std::cout << "Search:\tmatching " << tree.input[e.startLabelIndex + iter] << " " 
+                          //   << pattern[i + iter + 1]
+                            //<< " at index: " << e.startLabelIndex + iter << std::endl;
                         // If character matches we increase the iterator
                         // otherwise we are done. No match.
                         if (tree.input[e.startLabelIndex + iter] == pattern[i + iter + 1]) { 
@@ -136,16 +137,20 @@ bool search(std::string pattern, suffixTree tree) {
             i+=(iter);
         }
     }
+    std::cout << "failed" << std::endl;
     return true;
 }
 
 
-void buildTree(const std::string& S, suffixTree* tree) {
-    tree->input = S;
-    tree->nodeArray = (Node *)malloc(2*(tree->input.length() - 1)*(sizeof (Node)));
+suffixTree buildTree(const std::string& S) {
+    suffixTree tree(0, 0, -1);
+    tree.input = S;
+    tree.nodeArray = (Node *)malloc(2*(tree.input.length() - 1)*(sizeof (Node)));
 
-    for (int i = 0; i < (int)tree->input.length(); i++) {
-        carryPhase(*tree, i);
-        //tree->printAllEdges();
+    for (int i = 0; i < (int)tree.input.length(); i++) {
+        carryPhase(tree, i);
+        //tree.printAllEdges();
     }
+    
+    return tree;
 }

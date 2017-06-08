@@ -45,10 +45,10 @@ class suffixTree {
         int rootNode;   // Origin of the suffix tree
         int startIndex; // Starting index of the string represented.
         int endIndex;   // End index of the string represented.
-        int noOfNodes; //private?
+        int noOfNodes; 
         Node* nodeArray;
-        std::unordered_map <long, Edge> edgeHash; //private?
-        std::string input; //private?
+        std::unordered_map <long, Edge> edgeHash;
+        std::string input;
         // Constructor
         suffixTree() :
             rootNode(0), 

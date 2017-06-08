@@ -6,8 +6,8 @@
 
 using testing::Test;
 
-#define NUM_TEST_CASES 10000
-#define RANDOM_STRING_SIZE 30
+#define NUM_TEST_CASES 1000
+#define RANDOM_STRING_SIZE 100
 
 // Sanity check for suffix tree matching based on 3rd party code
 TEST(SuffixTreeSanityCheck, SubstringMatchesInRandomString) {
@@ -24,9 +24,8 @@ TEST(SuffixTreeSanityCheck, SubstringMatchesInRandomString) {
         if (start > end) {
             std::swap(start, end);
         }
-        std::string P = " " + T.substr(start, end);
-        suffixTree tree;
-        buildTree(T, &tree);
+        std::string P = "" + T.substr(start, end);
+        suffixTree tree = buildTree(T);
         EXPECT_TRUE(search(P, tree));
     }
 }
