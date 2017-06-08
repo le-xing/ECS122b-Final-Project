@@ -140,3 +140,13 @@ bool search(string pattern, suffixTree tree) {
     return true;
 }
 
+
+void buildTree(const std::string& S, suffixTree* tree) {
+    tree->input = S;
+    tree->nodeArray = (Node *)malloc(2*(tree->input.length() - 1)*(sizeof (Node)));
+
+    for (int i = 0; i < (int)tree->input.length(); i++) {
+        carryPhase(*tree, i);
+        tree->printAllEdges();
+    }
+}
