@@ -1,10 +1,44 @@
 #ifndef SUFFIXTREE_H
 #define SUFFIXTREE_H 
 
-#include "node.h"
-#include "edge.h"
 #include <iostream>
 #include <unordered_map>
+
+class Node {
+public:
+    int suffixNode;
+    
+    Node () : 
+        suffixNode(-1) {};
+    
+    ~Node() {
+    }
+};
+
+class Edge {
+public:
+    // Edges are hash-searched on the basis of startNode.
+    // startNode = -1 means that this edge is not valid yet.
+    int startNode;
+    int endNode;
+    int startLabelIndex;
+    int endLabelIndex;
+    
+    // Constructors.
+    Edge () : startNode(-1) {};
+    // everytime a new edge is created, a new node is also created and thus the
+    // endNode is declared as below.
+    Edge (int start, int end, int first, int last) :
+        startNode (start),
+        endNode (end),
+        startLabelIndex (first),
+        endLabelIndex (last) {};
+    // Destructor
+    ~Edge() {
+      //  cout << "destroying edge " << startNode << " " << endNode << endl;
+    }        
+
+};        
 
 class suffixTree {
     public:
@@ -13,8 +47,8 @@ class suffixTree {
         int endIndex;   // End index of the string represented.
         int noOfNodes; //private?
         Node* nodeArray;
-        unordered_map <long, Edge> edgeHash; //private?
-        string input; //private?
+        std::unordered_map <long, Edge> edgeHash; //private?
+        std::string input; //private?
         // Constructor
         suffixTree() :
             rootNode(0), 

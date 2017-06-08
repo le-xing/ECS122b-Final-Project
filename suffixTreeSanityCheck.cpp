@@ -7,7 +7,7 @@
 using testing::Test;
 
 #define NUM_TEST_CASES 10000
-#define RANDOM_STRING_SIZE 100
+#define RANDOM_STRING_SIZE 30
 
 // Sanity check for suffix tree matching based on 3rd party code
 TEST(SuffixTreeSanityCheck, SubstringMatchesInRandomString) {
@@ -16,7 +16,7 @@ TEST(SuffixTreeSanityCheck, SubstringMatchesInRandomString) {
     std::uniform_int_distribution<int> letterDistribution(0, 25);
     std::uniform_int_distribution<int> substringDistribution(1, RANDOM_STRING_SIZE);
     for (int i = 0; i < NUM_TEST_CASES; i++) {
-        std::string T = " ";
+        std::string T = "";
         for (int j = 0; j < RANDOM_STRING_SIZE; j++) {
             T.push_back('a' + letterDistribution(generator));
         }
