@@ -1,23 +1,23 @@
-#include <string.h>
+#include <string>
 #include <iostream>
 
 #include "buildTree.h"
 #include "linearizeString.h"
 
-std::sting linearizeString(std::string cutString) {
+std::string linearizeString(std::string cutString) {
     std::string repString = cutString;
     repString.append(cutString);
-    repString.append("$");
+    //repString.append("$");
     suffixTree tree = buildTree(repString);
-    std::string lexicalString = lexDFS(0, tree, cutString, 0);
+    std::string lexicalString = lexDFS(0, repString, tree, 0);
     return lexicalString;
 }
 
-std::string lexDFS(int curNode, std::string cutString, suffixTree tree, int lexStringlength) {
-std::cout << "starting with lex length " << lexStringlength << std::endl;
+std::string lexDFS(int curNode, std::string repString, suffixTree tree, int lexStringlength) {
     std::string lexString = "";
-    Edge* curEdge = NULL;
-    int charsToAdd = cutString.length() - lexStringlength;
+    int nextNode = 0;
+    int start, end;
+    int charsToAdd = repString.length()/2 - lexStringlength;
 
     if(!charsToAdd)
         return lexString;
@@ -25,26 +25,32 @@ std::cout << "starting with lex length " << lexStringlength << std::endl;
     // Find the edge from @curNode that starts with the lexically smallest value
     for(auto it = tree.edgeHash.begin(); it != tree.edgeHash.end(); it++) {
         if(it->second.startNode == curNode) {
-            if(!curEdge)
-                curEdge = it->second;
-            else if(cutString[it->second.startIndex] < cutString[curEdge->startIndex])
-                curEdge = it->second;
+            if(!nextNode) {
+                nextNode = it->second.endNode;
+                start = it->second.startLabelIndex;
+                end = it->second.endLabelIndex;
+            }
+            else if(repString[it->second.startLabelIndex] < repString[start]) {
+                nextNode = it->second.endNode;
+                start = it->second.startLabelIndex;
+                end = it->second.endLabelIndex;
+            }
         }
     }
-
+    
     // Append edge label
-    if(curEdge->endIndex - curEdge->startIndex + 1 > charsToAdd) { 
+    if(end - start + 1 > charsToAdd) {
         // End of lexString is in middle of edge label
-        lexString.append(cutString.substring(curEdge->startIndex, charsToAdd));
+        std::cout << start << std::endl;
+        std::cout << repString.substr(start, charsToAdd) << std::endl;
+        lexString.append(repString.substr(start, charsToAdd));
         
     }else { 
         // Append the entire edge label
-        lexString.append(cutString.substr(curEdge->startIndex, 
-            (curEdge->endIndex - curEdge->startIndex + 1));
+        lexString.append(repString.substr(start, end - start + 1));
         // Recursive call to next node
-        lexString.append(DFS(curEdge->endNode, cutString, tree, lexString.length()));
+        lexString.append(lexDFS(nextNode, repString, tree, lexString.length()));
     }
-
-std::cout << "Added from one DFS call " << lexString << std::endl;
+    
     return lexString;
 }

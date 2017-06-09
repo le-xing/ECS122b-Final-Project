@@ -137,7 +137,6 @@ bool search(std::string pattern, suffixTree tree) {
             i+=(iter);
         }
     }
-    std::cout << "failed" << std::endl;
     return true;
 }
 
