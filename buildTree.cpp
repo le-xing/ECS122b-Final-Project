@@ -1,5 +1,6 @@
-#include "buildTree.h"
 #include <cassert>
+
+#include "buildTree.h"
 
 /*
  * Break an edge so as to add new string at a specific point.
@@ -97,8 +98,8 @@ bool search(std::string pattern, suffixTree tree) {
 
     if (e.startNode != -1) {
         while(i < len) {
-            std::cout << "Search:\tEdge: " << e.startNode << " " << e.endNode << " : " 
-                << tree.input[e.startLabelIndex]  << " " << tree.input[e.endLabelIndex] << " I: " << i << std::endl;
+            //std::cout << "Search:\tEdge: " << e.startNode << " " << e.endNode << " : " 
+               // << tree.input[e.startLabelIndex]  << " " << tree.input[e.endLabelIndex] << " I: " << i << std::endl;
             // Match the pattern on this edge.
             iter = 0;
             // Match this edge as much as possible.
@@ -113,13 +114,13 @@ bool search(std::string pattern, suffixTree tree) {
                             iter++;
                             // If we have a match in the middle then we are done.
                             if (i + iter  + 1 >= len) {
-                                std::cout << "Search:\tWe have a match ending at " 
-                                     << e.startLabelIndex + iter  - 1 << std::endl;
+                                //std::cout << "Search:\tWe have a match ending at " 
+                                  //   << e.startLabelIndex + iter  - 1 << std::endl;
                                 return true;
                             }
                         }
                         else {
-                            std::cout << "Search:\tMatch not found, matched only upto index:" << i+iter << std::endl;
+                            //std::cout << "Search:\tMatch not found, matched only upto index:" << i+iter << std::endl;
                             return false;     
                         }
                    }
@@ -130,8 +131,8 @@ bool search(std::string pattern, suffixTree tree) {
             // Now we need to find another edge to match.
             e = tree.findEdge(e.endNode, pattern[i + iter + 1]);
             if (e.startNode == -1) {
-                std::cout << "Search:\tMatch not found, matched only upto " << i + iter  
-                     << " " << pattern[i + iter + 1]<< std::endl;
+                //std::cout << "Search:\tMatch not found, matched only upto " << i + iter  
+                   //  << " " << pattern[i + iter + 1]<< std::endl;
                 return false;    
                 }
             i+=(iter);
@@ -151,5 +152,17 @@ suffixTree buildTree(const std::string& S) {
         //tree.printAllEdges();
     }
     
+    return tree;
+}
+
+suffixTree addTree(suffixTree tree, const std:: string& S) {
+//std::cout << tree.input << "\t" <<tree.startIndex <<"\t" << tree.endIndex << std::endl;
+    tree.input = S;
+    tree.rootNode = 0;
+    tree.startIndex = 0;
+    tree.endIndex = -1;
+    for (int i = 0; i < (int)tree.input.length(); i++) {
+        carryPhase(tree, i);
+    }
     return tree;
 }

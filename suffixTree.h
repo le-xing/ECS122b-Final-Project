@@ -7,10 +7,8 @@
 class Node {
 public:
     int suffixNode;
-    
     Node () : 
         suffixNode(-1) {};
-    
     ~Node() {
     }
 };

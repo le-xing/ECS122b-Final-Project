@@ -9,6 +9,7 @@ using namespace std;
 long returnHashKey(int nodeID, int c) {
     return (long)(nodeID + (((long)c) << 56));
 }
+
 /*
  * Insert an edge into the suffix tree
  */
@@ -51,7 +52,7 @@ void suffixTree::migrateToClosestParent() {
         // Above will always return a valid edge as we call this method after
         // adding above.
         if(e.startNode == -1) {
-            cout <<  rootNode << " " << startIndex << " " << input[startIndex] << endl;
+            //cout <<  rootNode << " " << startIndex << " " << input[startIndex] << endl;
         }
         assert(e.startNode != -1);
         int labelLength = e.endLabelIndex - e.startLabelIndex;
@@ -63,7 +64,7 @@ void suffixTree::migrateToClosestParent() {
             if (startIndex <= endIndex) {
                 e = findEdge(e.endNode, input[startIndex]);
           if(e.startNode == -1) {
-            cout <<  rootNode << " " << startIndex << " " << input[startIndex] << endl;
+            //cout <<  rootNode << " " << startIndex << " " << input[startIndex] << endl;
         }
                assert(e.startNode != -1);
                 labelLength = e.endLabelIndex - e.startLabelIndex;

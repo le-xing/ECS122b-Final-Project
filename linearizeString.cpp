@@ -4,16 +4,26 @@
 #include "buildTree.h"
 #include "linearizeString.h"
 
+// Linearize circular string
+// Input: A circular string that has been cut to be linear
+// Output: Lexically smallest representation of the circular string
 std::string linearizeString(std::string cutString) {
     std::string repString = cutString;
     repString.append(cutString);
-    //repString.append("$");
     suffixTree tree = buildTree(repString);
     std::string lexicalString = lexDFS(0, repString, tree, 0);
     return lexicalString;
 }
 
-std::string lexDFS(int curNode, std::string repString, suffixTree tree, int lexStringlength) {
+// Lexical DFS 
+// Input: Node to start search from, the representative string of the circular
+//        string, the tree to search, and the length of the lexically smallest
+//        string so far;
+// Ouput: Lexically smallest string starting at @curNode      
+std::string lexDFS(int curNode, 
+    std::string repString, 
+    suffixTree tree, 
+    int lexStringlength) {
     std::string lexString = "";
     int nextNode = 0;
     int start, end;
@@ -40,9 +50,7 @@ std::string lexDFS(int curNode, std::string repString, suffixTree tree, int lexS
     
     // Append edge label
     if(end - start + 1 > charsToAdd) {
-        // End of lexString is in middle of edge label
-        std::cout << start << std::endl;
-        std::cout << repString.substr(start, charsToAdd) << std::endl;
+        // lexString ends in middle of edge label; append part of edge label
         lexString.append(repString.substr(start, charsToAdd));
         
     }else { 

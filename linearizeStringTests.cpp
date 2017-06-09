@@ -6,6 +6,8 @@
 
 using testing::Test;
 
+// Testing that the linearized string is the same length as the cut circular
+// string
 TEST(LinearizeStringTest, ReturnStringLengthTest) {
     std::string S1 = "abc";
     std::string S2 = "cbbcbb";
@@ -15,6 +17,8 @@ TEST(LinearizeStringTest, ReturnStringLengthTest) {
     EXPECT_EQ(S2.length(), L2.length());
 }
 
+// Testing that the linearized string is made up of the same characters as the
+// original string
 TEST(LinearizeStringTest, SameContentsStringTest) {
     std::string S = "btsynwa";
     std::string L = linearizeString(S);
@@ -23,16 +27,19 @@ TEST(LinearizeStringTest, SameContentsStringTest) {
     EXPECT_EQ(S, L);
 }
 
+// Testing that the function returns the same string if the cut string is 
+// already lexically smallest string
 TEST(LinearizeStringTest, LinearizeSmallStringTest) {
-    std::string S = "zxyabc";
+    std::string S = "abcdef";
     std::string L = linearizeString(S);
-    EXPECT_EQ("abczxy", L);
+    EXPECT_EQ(S, L);
 }
 
-TEST(LinearizeStringTest, LinearizeLargeStringTest) { 
-    std::string S = "erhoqnqidfaqiwblzdfiwnlkndfirncoq";
+// Testing that the string is linearized correctly
+TEST(LinearizeStringTest, LinearizeStringTest) { 
+    std::string S = "zyxabc";
     std::string L = linearizeString(S);
-    EXPECT_EQ("aqiwblzdfiwnlkndfirncoqerhoqnqidf", L);
+    EXPECT_EQ("abczyx", L);
 }    
 
 int main(int argc, char** argv) {
