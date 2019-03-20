@@ -1,3 +1,16 @@
+# Algorithm Design and Analysis Final Project
+This project builds upon a third-party implementation of Ukkonen's algorithm.
+## Part 1
+In the Part1 branch, the original code is refactored and Google Test is used to 
+run extended random tests to ensure correctness of the algorithm implmentation.
+## Part 2
+In the Part2 branch, the modified suffix-tree building algorithm is used to
+implement algorithms for the linearization of circular strings and the finding
+of the least common substring of two strings. Google Test is used again to
+test the correctness of these algorithms through extended tests of randomized
+inputs.
+
+# Original README
 Implementation of Ukkonen's algorithm in C++.
 This is very special algorithm. You may have a look at the original paper here:
 http://www.cs.helsinki.fi/u/ukkonen/SuffixT1withFigs.pdf.
